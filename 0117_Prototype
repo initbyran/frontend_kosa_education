@@ -69,13 +69,9 @@ const parent = {x : 1};
 obj1.__proto__ = parent; // 상속 구조도를 재구성할 수 있음(instance level에서 가능-자바와의 차이점)
 console.log(obj1.x);
 
-var obj2 = {name : '홍길동' };
-console.dir(obj2);
-
-function Circle3(radius){
-    this.radius = radius;
-}
-
-const circle4 = new Circle3(1);
-console.dir(circle4);
-
+// 유일한 예외 
+// object는 생성자함수면서 객체
+const obj2 = Object.create(null); // create라는 property를 가지고있음
+// 상위 prototype 객체를 지정해서 만들 수 있다
+const obj3 = new Object();
+//asdf
