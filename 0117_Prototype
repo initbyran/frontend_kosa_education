@@ -1,0 +1,81 @@
+// 일반 객체
+var obj = {
+    name : '홍길동'
+}
+// 함수 선언문
+function myFunc(number){
+    return 2*number;
+}
+console.dir(obj);
+console.dir(myFunc);
+
+// 내장 배열 ; argument (유사배열객체) - 함수객체의 property
+// 가변인자함수를 구현하기 위해서 사용!
+function sum() {
+    let result = 0;
+    for(let i = 0; i<arguments.length; i++){
+        result += arguments[i];
+    }
+    return result;
+}
+
+console.log(sum(10,20,30,40));
+console.log(sum(90,85,5,36,85,97,50));
+
+// ES6 ; rest parameter - 진짜 배열
+function sum1(...args){
+    let result = 0;
+    for(let i = 0; i<args.length; i++){
+        result += args[i];
+    }
+    return result;
+}
+
+// 함수선언문 - 생성자 함수
+function Circle(radius){
+    this.radius = radius;
+    Circle.prototype.getArea = function(){
+        return Math.PI * this.radius ** 2 ;
+    }
+    Circle.prototype.name = '홍길동'
+}
+
+const Circle1 = new Circle(2);
+const Circle2 = new Circle(5);
+console.dir(Circle);
+console.dir(Circle1);
+console.dir(Circle2);
+console.log(Circle2.radius === Circle1.radius);
+console.log(Circle1.getArea === Circle2.getArea);
+console.log(Circle1.name, Circle2.name);
+
+Circle1.name = '신사임당'
+console.log(Circle1.name, Circle2.name); // 신사임당 홍길동
+
+Circle.prototype.name = '강감찬'
+console.log(Circle1.name, Circle2.name); // 신사임당 강감찬
+
+Circle1.__proto__.name = '신사임당'
+console.log(Circle1.name, Circle2.name); // 신사임당 신사임당
+
+console.log(Circle1.constructor === Circle); // true 
+
+// == 내용이 같은지 비교 (일단 타입을 맞춰주고 같은지 비교)
+// === 타입이 같고, 내용이 같은지를 비교
+
+//prototype은 상속 구조를 나타내기 위한 방법
+const obj1 = {}; // 객체 literal로 만든 빈 객체
+const parent = {x : 1};
+obj1.__proto__ = parent; // 상속 구조도를 재구성할 수 있음(instance level에서 가능-자바와의 차이점)
+console.log(obj1.x);
+
+var obj2 = {name : '홍길동' };
+console.dir(obj2);
+
+function Circle3(radius){
+    this.radius = radius;
+}
+
+const circle4 = new Circle3(1);
+console.dir(circle4);
+
