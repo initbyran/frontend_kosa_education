@@ -1,0 +1,10 @@
+
+        /* CSS 작성 */
+    h1 {
+        /* h2 element 다 찾아! */
+        color : darksalmon;
+        background-color : beige;
+    }
+    img {
+        width : 200px ;
+    }

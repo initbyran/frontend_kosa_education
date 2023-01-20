@@ -74,4 +74,66 @@ console.log(obj1.x);
 const obj2 = Object.create(null); // create라는 property를 가지고있음
 // 상위 prototype 객체를 지정해서 만들 수 있다
 const obj3 = new Object();
-//asdf
+
+const obj4 = {};
+const parent1 = {
+    x : 1
+}
+// prototype 객체를 획득
+Object.getPrototypeOf(obj4);
+// obj4의 prototype 객체를 parent1로 설정
+Object.setPrototypeOf(obj4, parent1);
+
+// non-constructor인 arrow function
+const person = (name) => {
+      this.name = neme;
+};
+console.log(person.prototype); // undefined
+
+function Circle01 (radius){
+    this.radius=radius;
+}
+
+const circle02 = new Circle01(5);
+console.dir(circle02);
+
+Circle01.age = 20;
+console.log(circle02.age); //undefined ; prototype chain이 다르므로
+// 상위 함수의 property 직접적 사용 불가
+
+ // 전역, 함수안에서 제일 위에 언급
+
+// function foo(){
+//     'use strict';
+//     x=10; // 전역변수로 만든다 ; window객체의 property로 등록 (암묵적 전역,implicit global)
+// }
+// foo();
+// console.log(x); // 10
+
+const x =1 ;
+function outer(){
+    const x = 10;
+    function inner(){
+        console.log(x);
+    }
+    return inner; // 함수가 함수를 리턴 - 자바스크립트의 함수는 일급객체이므로
+}
+const result = outer();
+result(); // 10 (closure)
+
+// closure 예제 - 즉시실행함수
+const increase = (function(){
+    let num = 0;
+    return function() {
+        return ++num; 
+    }
+}());
+
+console.log(increase());
+console.log(increase());
+console.log(increase());
+
+// 간단한 카운터를 만들 수 있다
+// 현재 카운트 값을 외부에서 함부로 변경하지 못하도록 -> 지역변수인데 계속 유지가 되어야함
+// (자바의 정보 은닉 ; information hiding)
+
