@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      {{ message }} 
+      <div id="myDiv"></div>
+      <button v-on:click="myClick">클릭하세요!</button>
+      </div>
+
+    </div>
+    <script>
+        // Vue instance
+        new Vue({
+            el : '#app', // el 속성
+            data : { // data 속성
+                message : '소리없는 아우성!'
+            },
+            methods : {
+                myFunc : function(){
+                    console.log('myFunc');
+                },
+                myClick : function(){
+                     console.log('button clicked');
+                     const myDiv = document.getElementById('myDiv');
+                     myDiv.innerText = 'div context has been changed'
+                     this.message = 'message has been changed' // data 변경 - 화면 갱신 
+                }
+            },
+            beforeCreate : function(){
+                // 함수 호출 ; beforeCreate hook method
+                // instance가 생성되고 가장 처음에 실행되는 life cycle
+                console.log('beforeCreate');
+                console.log(this.message); // undefined ; 아직 el, data, methods 속성 정의되지 않았음
+            },
+            created : function(){
+                // created hook method
+               console.log('created');
+               console.log(this.message);
+               this.myFunc();
+            },
+            beforeMount : function(){
+                console.log('beforeMount');
+            },
+            mounted : function(){
+                console.log('mounted');
+                const myDiv = document.getElementById('myDiv');
+                myDiv.innerText = 'hello'
+                // $('#myDiv').text('hello');
+            },
+            beforeUpdate : function(){
+                console.log('beforeUpdate');
+            },
+            updated : function(){
+                console.log('updated');
+            }
+        });
+    </script>
+</body>
+</html>

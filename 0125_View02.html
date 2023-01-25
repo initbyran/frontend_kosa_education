@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <button>component</button>
+         <div> {{myMsg}} </div>
+         <my-component></my-component>
+         <my-local-cmp></my-local-cmp>
+    </div>
+    <div id="second">
+         <my-component></my-component>
+         <my-local-cmp></my-local-cmp>
+    </div>
+    <script>
+       // global component ; JavaScript instance
+       // component name ; 소문자, kebab style
+       Vue.component('my-component',{
+           template : '<div>여기는 DIV 전역 컴포넌트입니다.</div>' 
+       });
+
+       let cmp = {
+            template : '<div>여기는 DIV 지역 컴포넌트입니다.</div>'
+       }
+
+       new Vue({ //instance내에서 등록
+           el : '#app',
+           data : {
+                myMsg : 'HELLO'
+           },
+           components : {
+            'my-local-cmp' : cmp // reference일뿐 귀속되는 것은 아니다
+           }
+       });
+
+       new Vue({
+           el : '#second'
+       })
+       
+    </script>
+     
+</body>
+</html>
