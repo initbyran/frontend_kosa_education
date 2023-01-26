@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <child-component v-on:print_msg="printText"></child-component>
+    </div>
+
+    <script>
+    Vue.component('child-component',{
+        template : '<button v-on:click="childFunc">클릭클릭</button>',
+        data(){
+            return{myData : 200}
+        },
+        methods : {
+            //function ; emit event 
+            childFunc : function(){
+                 this.$emit('print_msg',100,'Hello',{
+                    msg : '전달된 이벤트'
+                 })
+            }
+        }
+    });
+    new Vue({
+        el : '#app',
+        methods : {
+            printText : function(...args){
+                 console.log('이벤트 발생');
+                 console.log(args[0]);
+                 console.log(args[1]);
+                 console.log(args[2]);
+            }
+        }
+    });
+
+    </script>
+</body>
+</html>

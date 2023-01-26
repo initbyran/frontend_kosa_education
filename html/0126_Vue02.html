@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        Root component의 값은 : {{ myName }}
+    <global-component></global-component>
+    <global-component></global-component>
+    <global-component></global-component>
+    </div>
+
+    <script>
+        let tmp = {
+            myName : '홍길동', // property
+            myFunc : function(){}, // property : 리터럴
+            mySum(){ // method ; non-constructor
+              
+            } 
+        }
+        Vue.component('global-component',{
+            template : '<div>변수의 값은 : {{ myData }}</div>',
+            // data : function()  { 
+            //     return{myData : 100};
+            // }
+            data(){ 
+                return {myData : 200}
+            }
+        });
+
+       new Vue({
+            el : '#app',
+            data : {
+                myName : '홍길동'
+            }
+       });
+    </script>
+</body>
+</html>

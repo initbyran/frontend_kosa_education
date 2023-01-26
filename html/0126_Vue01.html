@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      HELLO VUE.JS!! {{ myID }}
+        <my-component></my-component> 
+        <my-local-component></my-local-component>
+    </div>
+
+    <script>
+        let myCmp = {
+            template : '<div>여기는 DIV 전역 컴포넌트입니다.</div>'
+        }
+        let localCmp = {
+            template : '<div>여기는 DIV 지역 컴포넌트입니다.</div>'
+        }
+        Vue.component('my-component',myCmp);
+
+        new Vue({
+            el : '#app',
+            data : {
+                myID : '홍길동',
+                myAge : 20
+            },
+            components : {
+                'my-local-component' : localCmp
+            }
+        })
+    </script>
+</body>
+</html>

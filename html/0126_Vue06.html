@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child-component></child-component>
+    </div>
+
+    <script>
+        // event bus 를 이용하기위해서 vue instance 생성
+        let eventBus = new Vue();
+        // 하위 component로 사용할 전역 component 등록
+        Vue.component('child-component',{
+            template : '<button v-on:click="btnClick">클릭클릭</button>',
+            methods : {
+                btnClick : function(){
+                    // eventBus에 대해서 event를 발생시킴
+                    eventBus.$emit('generateEvent',300);
+                }
+            }
+        });
+        
+        // root component
+        new Vue({
+            el : '#app',
+            created : function(){
+                // eventBus에 대해서 event 등록
+                eventBus.$on('generateEvent', function(value){
+                     console.log('이벤트 발생', value);
+                });
+            }
+        })
+    </script>
+</body>
+</html>

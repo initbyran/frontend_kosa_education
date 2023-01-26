@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <global-cmpa></global-cmpa>
+       <global-cmpb></global-cmpb>
+    </div>
+
+    <script>
+     let cmpC = {
+         template : '<div> local component C </div>'
+     }
+     let cmpD = {
+         props : {propsData : String},
+         template : '<div> 결과는 : {{ propsData }} </div>'
+     }
+     let cmpF = {
+         template : `<div>
+            <input type=text id='inputTxt' value="이것은 소리없는 아우성!">
+            <button v-on:click="clickFunc">클릭클릭!</button>
+            </div>`,
+         methods : {
+            clickFunc : function(){
+                this.$emit('print_msg',{
+                   msg : $('#inputTxt').val()
+                })
+            }
+         } 
+        }
+     Vue.component('global-cmpa',{
+         props : {propsData : String},
+         template : `<div>
+            <local-cmpc></local-cmpc>
+            <local-cmpd v-on:print_msg="printText"></local-cmpd>
+            </div>`,
+         components : {
+              'local-cmpc' : cmpC,
+              'local-cmpd' : cmpD   
+         }
+     });
+     Vue.component('global-cmpb',{
+         template : '<local-cmpf></local-cmpf>',
+         components : {
+              'local-cmpf' : cmpF 
+         },
+         methods : {
+            
+         }
+     });
+
+     new Vue({
+        el : '#app',
+        methods : {
+            printText : function(){
+               
+            }
+        }
+        
+     });
+    </script>
+</body>
+</html>

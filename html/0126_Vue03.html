@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      <my-component1></my-component1>
+      <my-component2></my-component2>
+    </div>
+
+    <script>
+     let cmp1 = {
+        template : '<div>첫번째 지역 component : {{ cmp1Data }} </div>',
+        data : function(){
+            return{cmp1Data : 100}
+        }
+     }
+
+     let cmp2 = {
+        template : '<div>두번째 지역 component : {{ cmp2Data }} </div>',
+        data : function(){
+            return{cmp1Data : cmp1.data.cmp1Data}
+        }
+     }
+    
+     new Vue({
+        el : '#app',
+        components : {
+            'my-component1' : cmp1,
+            'my-component2' : cmp2
+        }
+     })
+
+    </script>
+</body>
+</html>
