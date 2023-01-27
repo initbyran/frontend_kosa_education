@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <!--Axios CDN-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   
+</head>
+<body>
+    <div id="app"> 
+      <div v-bind:id="myID">소리없는 아우성!</div>
+      <a v-if="flag" href="http://www.naver.com">네이버로 가기</a>
+      <br><br>
+      <a v-show="flag" href="http://www.kakao.com">카카오로 가기</a>
+      <br><br>
+      <input type="text" v-model="myTxt">
+      <button v-on:click="myFunc">입력 상자 안의 내용 출력하기</button>
+      <br><br>
+        <li v-for="name in names">{{ name }}</li>
+    </div>
+
+    <script>
+        new Vue({
+            data : {
+                flag : true,
+                myID : 'myDIV',
+                myTxt : '',
+                names : ['홍길동','신사임당','강감찬']
+            },
+            methods : {
+                myFunc : function(){
+                    alert(this.myTxt);
+                }
+            },
+            watch : {
+                myTxt : function(){
+                    console.log(this.myTxt+'로 변경');
+                }
+            } 
+        }).$mount('#app');
+    
+    </script>
+</body>
+</html>

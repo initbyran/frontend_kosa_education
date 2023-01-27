@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <!--Axios CDN-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  
+</head>
+<body>
+    <div id="app"> 
+       <button v-on:click="myFunc">AJAX 호출</button>
+    </div>
+
+    <script>
+        new Vue({
+            methods : {
+               myFunc : function(){
+                  // Axios를 이용한 AJAX 호출!
+                  axios({
+                     url : 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml',
+                     method : 'GET',
+                     // data는 POST, PUT, DELETE method 방식에만 적용 가능
+                     // params : URL parameter (Query String 방식으로 전달되는 데이터를 의미하며 당연히 get 방식)
+                     params : {
+                         key : '055bf3cf9c2367e1b7a396e3ec91ab3d',
+                         targetDt : '20230101'
+                     },
+                     responseType : 'json' // 기본값
+
+                  }).then(function(result){
+                          console.log(result.data);
+                  }).catch(function(){
+                     console.log('error');})
+                                      
+               }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>

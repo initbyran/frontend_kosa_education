@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app"> 
+       <h1>Vue router 예제</h1>
+       <p>
+          <!--link 만들기--> 
+        <router-link to="/main">main componenet로 이동</router-link>
+        <router-link to="/login">login componenet로 이동</router-link>
+       </p>
+        <router-view></router-view>
+    </div>
+
+    <script>
+     // main component와 login component 작성
+    let mainComponent = {
+        template : '<div>main component</div>',
+
+    }
+    let loginComponent = {
+        template : '<div>login component</div>',
+    }
+
+    // 경로 설정 : 어떤 경로, 어떤 component
+    // 배열 : 여러 경로 설정
+    // 각각의 경로는 객체로 표현
+    let routes = [{
+        path : '/main',
+        component : mainComponent
+    },{
+        path : '/login',
+        component : loginComponent
+    }]
+
+    // 이렇게 설정된 경로 정보 배열을 이용해서 vue router객체 생성
+    let router = new VueRouter({
+        routes : routes
+    });
+
+    new Vue({
+        el : '#app',
+        router : router
+    }).$mount('#app');
+    </script>
+</body>
+</html>

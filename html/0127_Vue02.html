@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app"> 
+         <router-view></router-view>
+    </div>
+
+    <script>
+         // member component
+         let memberComponent = {
+            template : `<div>
+                여기는 member component 입니다.
+                <router-view></router-view>
+                </div>`
+         }
+
+         // profile component
+         let profileComponent = {
+            template : '<div>여기는 profile component 입니다.</div>'
+         }
+
+         // post component
+         let postComponent = {
+            template : '<div>여기는 post component 입니다.</div>'
+         }
+
+         // 경로 설정
+         let routes = [{
+            path : '/member',
+            component : memberComponent,
+            children : [{
+                path : 'profile',
+                component : profileComponent                
+            },{
+                path : 'post',
+                component : postComponent
+            }]
+         }]
+
+         // VueRouter 객체 생성
+         let router = new VueRouter({
+            routes
+         })
+         
+         new Vue({
+            router
+       }).$mount('#app')
+    </script>
+</body>
+</html>

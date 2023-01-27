@@ -3,13 +3,15 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+    </script>
     <!--Vue.js CDN-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 </head>
 <body>
-    <div id="app">
-       <global-cmpa></global-cmpa>
-       <global-cmpb></global-cmpb>
+    <div id="app"> 
+       <global-cmpa v-bind:my-string="message"></global-cmpa>
+       <global-cmpb v-on:event-b="haha"></global-cmpb>
     </div>
 
     <script>
@@ -17,27 +19,25 @@
          template : '<div> local component C </div>'
      }
      let cmpD = {
-         props : {propsData : String},
-         template : '<div> 결과는 : {{ propsData }} </div>'
+         props : {myData : String},
+         template : '<div> 결과는 : {{ myData }} </div>'
      }
      let cmpF = {
          template : `<div>
-            <input type=text id='inputTxt' value="이것은 소리없는 아우성!">
-            <button v-on:click="clickFunc">클릭클릭!</button>
+            <input type=text id='inputTxt'>
+            <button v-on:click="btnClick">클릭클릭!</button>
             </div>`,
          methods : {
-            clickFunc : function(){
-                this.$emit('print_msg',{
-                   msg : $('#inputTxt').val()
-                })
+            btnClick : function(){
+                this.$emit('event-f',$('#inputTxt').val())
             }
          } 
         }
      Vue.component('global-cmpa',{
-         props : {propsData : String},
+         props : {myString : String},
          template : `<div>
             <local-cmpc></local-cmpc>
-            <local-cmpd v-on:print_msg="printText"></local-cmpd>
+            <local-cmpd v-bind:my-data="myString"></local-cmpd>
             </div>`,
          components : {
               'local-cmpc' : cmpC,
@@ -45,24 +45,31 @@
          }
      });
      Vue.component('global-cmpb',{
-         template : '<local-cmpf></local-cmpf>',
+         template : '<local-cmpf v-on:event-f="myFunc"></local-cmpf>',
          components : {
               'local-cmpf' : cmpF 
          },
          methods : {
+             myFunc : function(data){
+                 this.$emit('event-b',data)
             
-         }
+         }}
      });
 
      new Vue({
         el : '#app',
+        data : {
+            message : ''
+        },
         methods : {
-            printText : function(){
+           haha : function(data){
+            this.message = data;
+           }
                
             }
         }
         
-     });
+     );
     </script>
 </body>
 </html>

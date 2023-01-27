@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <!--Axios CDN-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   
+</head>
+<body>
+    <div id="app"> 
+       <div>{{ message + "!!!" }}</div>
+       <div>{{ true ? 10 : 100 }}</div>
+       <!-- <div>{{ message.split('').reverse().join('') }}</div> 권장하지않음 -->
+       <div>{{ myFunc() }}</div>
+       <div>{{ myComputed }}</div>
+      
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                message: '소리없는 아우성',
+            },
+            methods: { // 함수
+                myFunc: function(){
+                    console.log('함수 호출');
+                    return this.message.split('').reverse().join('');
+                }
+            },
+            computed :  { // 함수값이 들어가있는 변수 (명시적으로 호출하는 함수가 아님) 
+                myComputed : function(){
+                    console.log('Computed 함수 호출');
+                    return this.message.split('').reverse().join('');
+                }}     
+
+        }).$mount('#app')
+       
+    </script>
+</body>
+</html>

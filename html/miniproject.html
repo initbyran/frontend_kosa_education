@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BoxOffice Template</title>
+    <!--Vue.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!--Vue router CDN-->
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <!--Axios CDN-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>BoxOffice</h1>
+        <br><br>
+        <input type="text" v-model="targetDate">
+        <button v-on:click="searchBtn">search</button>
+        <br><br>
+        <th scope="col">CHECK</th>
+        <th scope="col">순위</th>
+        <th scope="col">포스터</th>
+        <th scope="col">영화제목</th>
+        <th scope="col">관람객수</th>
+        <th scope="col">개봉일</th>
+        <th scope="col">삭제</th>   
+        <!-- <movie-list v-bind:my-data="myData" v-for="info in movieInfo" ></movie-list> -->
+        
+        <movie-list v-bind:my-data="myData" ></movie-list>
+        <div v-for="info in myData">{{ info }}</div>
+    </div>
+
+    <script>
+       Vue.component('movie-list',{
+             props : { myData : Array },
+             template : '<div>{{ movieInfo }}</div>',
+             data : function (){
+                return {movieInfo : []}
+
+             }
+       })
+
+       new Vue({
+        data : {
+             targetDate : '20230101',
+             myData : []
+        },
+        methods : {
+               searchBtn : function(){
+                  axios({
+                     url : 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json',
+                     method : 'GET',
+                     params : {
+                         key : '055bf3cf9c2367e1b7a396e3ec91ab3d',
+                         targetDt : this.targetDate
+                     },
+                     responseType : 'json' 
+
+                  }).then(function(result){
+                    //   this.myData = result;
+                        this.myData = result.data.boxOfficeResult;
+                          console.log(this.myData);
+                  }).catch(function(){
+                     console.log('error');})        
+                    },
+               
+               
+            }
+
+       }).$mount('#app');
+    </script>
+</body>
+</html>
