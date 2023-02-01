@@ -28,44 +28,39 @@
         <th scope="col">개봉일</th>
         <th scope="col">삭제</th>   
 
-        <movie-list v-bind:my-data="myData" v-bind:movie-img="movieImg" v-bind:selected-movies="selectedMovies"></movie-list>
-        
+        <movie-list v-bind:my-data="myData" v-bind:movie-img="movieImg"></movie-list>
+         <input  type="checkbox" id="selected" v-model="selectedMovies[info.rnum-1]">
         
         
     </div>
 
     <script>
        Vue.component('movie-list',{
-             props : { myData : Array },
-             porps : { movieImg : Array },
-             template : `<div v-for="info in myData">
-            <input  type="checkbox" id="selected" v-model="selectedMovies[info.rnum-1]">
-            {{ info.rank }}
-            <img v-bind:src="movieImg[info.rnum]">
-             {{ info.movieNm }} {{ info.audiCnt }} {{ info.openDt }}
-             <button v-on:click="deleteBtn">삭제</button>
+             props : {
+                myData : Array,
+                movieImg : Array
+            },
+            template : `
+            <div v-for="info in myData">
+                {{ info.rank }}
+                <img v-bind:src="movieImg[info.rnum]">
+                {{ info.movieNm }} {{ info.audiCnt }} {{ info.openDt }}
+                <button v-on:click="deleteBtn">삭제</button>
             </div>`,
-             data : function (){
-                return {movieInfo : [], movieImg : [], selectedMovies : []}
-             },
-             methods : {
+            data : function (){
+                return {
+                    movieInfo : [], movieImg : []
+                }
+            },
+            methods : {
                 
                 deleteBtn : function(index){
-                    this.myData.splice(index,1)
+                    this.myData.splice(index,1);
 
                 },
                 
                 
-                deleteSelectedBtn : function(){ 
-                    console.log(this.selectedMovies);
-                   
-                    this.selectedMovies.forEach((el, idx) => {
-                        if (el) { 
-                            this.myData = this.myData.filter((item) => parseInt(item.rnum) - 1 !== idx)
-                        }
-                    })
-                }
-             }
+            }
        })
 
     
@@ -74,7 +69,8 @@
         data : {
              targetDate : '',
              myData : [],
-             movieImg : [] 
+             movieImg : [] , 
+             selectedMovies : []
         },
         methods : {
             searchBtn : function(){
@@ -116,6 +112,16 @@
                                 console.log(error);
                                 console.log(this.myData.movieNm);
                         })
+                },
+                
+                deleteSelectedBtn : function(){ 
+                    console.log(this.selectedMovies);
+                   
+                    this.selectedMovies.forEach((el, idx) => {
+                        if (el) { 
+                            this.myData = this.myData.filter((item) => parseInt(item.rnum) - 1 !== idx);
+                        }
+                    })
                 }
 
         }
