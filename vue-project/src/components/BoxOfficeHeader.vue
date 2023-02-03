@@ -1,3 +1,4 @@
+<!--검색 기능-->
 <template>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
 
@@ -23,11 +24,11 @@ export default{
         targetDate : ""
         }
     },
-    methods :{
-        searchBtn(){
-            var value = this.targetDate;
-            this.$emit('searchBtn',value);
-        }
+    methods : {
+      searchBtn(){
+        var value=this.targetDate;
+        this.$emit('searchBtn',value);
+      }
     }
 }
 </script>
